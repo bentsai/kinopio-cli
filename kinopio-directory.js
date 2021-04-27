@@ -5,8 +5,8 @@ const needle = require("needle");
 
 const { apiKey } = JSON.parse(fs.readFileSync("config.json", "utf8"));
 
-const createCard = async (spaceId) => {
-  const spaceUrl = `https://kinopio.club/${spaceId}`;
+const createCard = async (space) => {
+  const spaceUrl = `https://kinopio.club/${space.url}`;
   try {
     const response = await needle(
       "post",
@@ -14,9 +14,10 @@ const createCard = async (spaceId) => {
       { spaceId: "LM30TehYj1NIDFh3EOUit", name: spaceUrl },
       {
         headers: { Authorization: apiKey },
+        json: true,
       }
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       console.log(response.body);
     }
     if (response.statusCode == 500) {
@@ -39,8 +40,7 @@ const createCards = async () => {
     );
     if (response.statusCode == 200) {
       for (const space of response.body) {
-        console.log(space.name);
-        await createCard(space.id);
+        await createCard(space);
       }
     }
   } catch (error) {
