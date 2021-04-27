@@ -1,0 +1,11 @@
+{
+  "name": "kinopio-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:bentsai/kinopio-cli.git",
+  "author": "Ben Tsai <bentsai@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "needle": "^2.6.0"
+  }
+}
